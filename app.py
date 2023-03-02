@@ -2,6 +2,7 @@ import streamlit as st
 import datetime
 import requests
 import pandas as pd
+import plotly.express as px
 
 # 1. Title
 st.markdown("<h1 style='text-align: center; color: purple;'>Batch 1117 ❀*ੈ✩‧₊˚ Taxifare</h1>", unsafe_allow_html=True)
@@ -39,12 +40,18 @@ pickup_date = st.date_input('Pickup datetime', value=datetime.datetime(2012, 10,
 pickup_time = st.time_input('Pickup datetime', value=datetime.datetime(2012, 10, 6, 12, 10, 20))
 pickup_datetime = f'{pickup_date} {pickup_time}'
 pickup_longitude = st.number_input('Pickup longitude', value=40.7614327)
-pickup_latitude = st.number_input('Pickup latitude', value=-73.9798156)
+pickup_latitude = st.number_input('Pickup latitude', value=73.9798156)
 dropoff_longitude = st.number_input('Dropoff longitude', value=40.6413111)
-dropoff_latitude = st.number_input('Dropoff latitude', value=-73.7803331)
+dropoff_latitude = st.number_input('Dropoff latitude', value=73.7803331)
 passenger_count = st.number_input('Passenger_count', min_value=1, max_value=8, step=1, value=1)
 
-st.map(pd.DataFrame({'lat': [pickup_latitude, dropoff_latitude], 'lon': [pickup_longitude, dropoff_longitude]}))
+
+df = pd.DataFrame({'lat': [pickup_latitude, dropoff_latitude], 'lon': [pickup_longitude, dropoff_longitude]})
+fig = px.scatter_mapbox(df, lat="lat", lon="lon",
+                        color_discrete_sequence=["fuchsia"], zoom=3, height=300)
+fig.update_layout(mapbox_style="open-street-map")
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+st.plotly_chart(fig, use_container_width=True)
 
 # 5. Put all of the parameters in a dictionary
 

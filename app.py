@@ -44,7 +44,7 @@ dropoff_longitude = st.number_input('Dropoff longitude', value=40.6413111)
 dropoff_latitude = st.number_input('Dropoff latitude', value=-73.7803331)
 passenger_count = st.number_input('Passenger_count', min_value=1, max_value=8, step=1, value=1)
 
-st.map(pd.Dataframe({'lat': [pickup_latitude, dropoff_latitude], 'lon': [pickup_longitude, dropoff_longitude]}))
+st.map(pd.DataFrame({'lat': [pickup_latitude, dropoff_latitude], 'lon': [pickup_longitude, dropoff_longitude]}))
 
 # 5. Put all of the parameters in a dictionary
 
